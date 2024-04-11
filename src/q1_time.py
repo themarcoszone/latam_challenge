@@ -5,12 +5,8 @@ import pandas as pd
 
 
 def q1_time(file_path: str) -> List[Tuple[datetime.date, str]]:
-    def read_dataframe():
-        with open(file_path, 'r') as file:
-            json_ob = json.loads(f"[{','.join(file.readlines())}]")
-            return pd.DataFrame.from_dict(json_ob)
 
-    df = read_dataframe()
+    df = pd.read_json(file_path, lines=True)
 
     # Format columns to the needed types and values
     df['date'] = pd.to_datetime(df['date']).dt.date
