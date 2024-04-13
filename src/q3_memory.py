@@ -2,8 +2,11 @@ from typing import List, Tuple
 import json
 from jsonpath_ng import parse
 from collections import Counter
+from memory_profiler import profile
 
 
+log_f = open('q3_memory.log', 'w')
+@profile(stream=log_f)
 def q3_memory(file_path: str) -> List[Tuple[str, int]]:
     # JSONPATH where are the mentioned user in the tweet
     jsonpath_expr = parse('mentionedUsers[*].username')
@@ -22,3 +25,7 @@ def q3_memory(file_path: str) -> List[Tuple[str, int]]:
         result |= {c: result.get(c, 0) + item.count(c) for c in item}
 
     return Counter(result).most_common(10)
+
+
+# path = '../resources/farmers-protest-tweets-2021-2-4.json'
+# q3_memory(path)
