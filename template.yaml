@@ -15,7 +15,10 @@ Resources:
           cd latam_challenge 
           pip install requirements.txt  >> /command-output.txt
           cd src/
-          python3 q1_memory.py >> /command-output.txt
+          aws s3 cp s3://dea-c01-marcos/data-eng-latam/tweets.json.zip .
+          aws s3 cp s3://dea-c01-marcos/data-eng-latam/test.json .
+          unzip tweets.json.zip
+          python3 app.py >> /command-output.txt
           echo "SUCCESS" >> /command-output.txt
       Role: marcos-ec2-s3
       LogGroup: my-cloudwatch-log-group
