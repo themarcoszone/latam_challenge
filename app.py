@@ -8,7 +8,7 @@ from src.q1_time import q1_time
 from src.q2_time import q2_time
 from src.q3_time import q3_time
 
-file_path = "resources/test.json"
+file_path = "farmers-protest-tweets-2021-2-4.json"
 # Check memory profile
 print(q1_memory(file_path))
 print(q2_memory(file_path))
