@@ -15,32 +15,6 @@ Approach 2
 - For each day get the top user who posted that day   
 '''
 def q1_memory(file_path: str) -> List[Tuple[datetime.date, str]]:
-    #Due to I need to minimize memory space, generator is a good approach
-    def read_json():
-        with open(file_path, 'r') as file:
-            while line := file.readline():
-                yield json.loads(line)
-
-    items = read_json()
-    date_user = []
-    #get date and user for every item and append to a list
-    for item in items:
-        only_date = datetime.strptime(item['date'], "%Y-%m-%dT%H:%M:%S%z").date()
-        date_user.append((only_date, item['user']['username']))
-
-    #get the top 10 dates
-    date_counts = Counter(date for date, _ in date_user).most_common(10)
-    dates = [d for d, _ in date_counts]
-    del date_counts
-    result = []
-    # for each top date get the top user. Append to the final result the date and user
-    for d in dates:
-        user_by_date = Counter(user for date, user in date_user if date == d).most_common(1)
-        result.append((d, user_by_date[0][0]))
-
-    return result
-
-def q1_memory_v2(file_path: str) -> List[Tuple[datetime.date, str]]:
     def read_json():
         with open(file_path, 'r') as file:
             while line := file.readline():
@@ -71,3 +45,6 @@ def q1_memory_v2(file_path: str) -> List[Tuple[datetime.date, str]]:
         del user_by_d
 
     return result
+
+
+

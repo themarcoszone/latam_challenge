@@ -1,5 +1,4 @@
 from typing import List, Tuple
-import pandas as pd
 import emoji
 import regex
 
@@ -24,19 +23,3 @@ def q2_time(file_path: str) -> List[Tuple[str, int]]:
 
     return Counter(result).most_common(10)
 
-#Subotpimal solution
-def q2_time_v2(file_path: str) -> List[Tuple[str, int]]:
-    df = pd.read_json(file_path, lines=True)
-    # Get a list of emojis in a given text
-    df['emojis'] = df['renderedContent'].apply(
-                                lambda x: [c for c in regex.findall(r'\X', x) if emoji.is_emoji(c)])
-
-    #df = df.loc[:, ~df.columns.isin(['emojis'])]
-    # I need to explode that emoji list
-    exploded_df = df.explode('emojis')
-    # Count emojis occurrence
-    exploded_df = exploded_df.groupby('emojis').size().reset_index(name='count_emojis')
-    # Keep the top 10 used emojis
-    exploded_df = exploded_df.nlargest(n=10, columns='count_emojis', keep='all')
-
-    return list(exploded_df[['emojis', 'count_emojis']].to_records(index=False))
