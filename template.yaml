@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  CmdParms:
+    Type: Number
+    Default: 10
+Resources:
+  RunCommand:
+    Type: AWSUtility::CloudFormation::CommandRunner
+    Properties:
+      Command:
+        Fn::Sub: |
+          sudo yum install git -y
+          yum install -y python3 python3-pip >> /command-output.txt
+          git clone https://github.com/themarcoszone/latam_challenge.git >> /command-output.txt
+          cd latam_challenge 
+          pip install requirements.txt  >> /command-output.txt
+          cd src/
+          aws s3 cp s3://dea-c01-marcos/data-eng-latam/tweets.json.zip .
+          aws s3 cp s3://dea-c01-marcos/data-eng-latam/test.json .
+          unzip tweets.json.zip
+          python3 app.py >> /command-output.txt
+          echo "SUCCESS" >> /command-output.txt
+      Role: marcos-ec2-s3
+      LogGroup: my-cloudwatch-log-group
+
+Outputs:
+  Output:
+    Description: Data Eng Challenges
+    Value:
+      Fn::GetAtt: RunCommand.Output
