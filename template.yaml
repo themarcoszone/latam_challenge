@@ -10,16 +10,17 @@ Resources:
       Command:
         Fn::Sub: |
           sudo yum install git -y
-          yum install -y python3 python3-pip >> /command-output.txt
-          git clone https://github.com/themarcoszone/latam_challenge.git >> /command-output.txt
+          yum install -y python3 python3-pip 
+          git clone https://github.com/themarcoszone/latam_challenge.git
           cd latam_challenge 
-          pip install requirements.txt  >> /command-output.txt
+          pip install requirements.txt 
           cd src/
           aws s3 cp s3://dea-c01-marcos/data-eng-latam/tweets.json.zip .
           aws s3 cp s3://dea-c01-marcos/data-eng-latam/test.json .
           unzip tweets.json.zip
-          python3 app.py >> /command-output.txt
-          echo "SUCCESS" >> /command-output.txt
+          python app.py > result.txt
+          aws s3 cp result.txt s3://dea-c01-marcos/data-eng-latam/result.txt
+          echo "Success!" > /command-output.txt
       Role: marcos-ec2-s3
       LogGroup: my-cloudwatch-log-group
 
