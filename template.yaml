@@ -17,8 +17,8 @@ Resources:
           echo "Change directory" >> result.txt
           aws s3 cp s3://dea-c01-marcos/data-eng-latam/tweets.json.zip .
           unzip tweets.json.zip
-          python3 app.py > result.txt
-          aws s3 cp result.txt s3://dea-c01-marcos/data-eng-latam/result.txt
+          python3 app.py > result.txt 2>&1 
+          aws s3 cp result.txt s3://dea-c01-marcos/data-eng-latam/out/result.txt
           echo "Success!" > /command-output.txt
       Role: marcos-ec2-s3
       LogGroup: my-cloudwatch-log-group

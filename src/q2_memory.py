@@ -3,11 +3,11 @@ import json
 import emoji
 import regex
 from collections import Counter
-from memory_profiler import profile
-
-
-log_f = open('q2_memory.log', 'w')
-@profile(stream=log_f)
+# from memory_profiler import profile
+#
+#
+# log_f = open('q2_memory.log', 'w')
+# @profile(stream=log_f)
 def q2_memory(file_path: str) -> List[Tuple[str, int]]:
     def read_json():
         with open(file_path, 'r') as file:
