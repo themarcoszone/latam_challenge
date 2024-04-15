@@ -2,11 +2,11 @@ from typing import List, Tuple
 import json
 from jsonpath_ng import parse
 from collections import Counter
-from memory_profiler import profile
-
-
-log_f = open('q3_memory.log', 'w')
-@profile(stream=log_f)
+# from memory_profiler import profile
+#
+#
+# log_f = open('q3_memory.log', 'w')
+# @profile(stream=log_f)
 def q3_memory(file_path: str) -> List[Tuple[str, int]]:
     # JSONPATH where are the mentioned user in the tweet
     jsonpath_expr = parse('mentionedUsers[*].username')

@@ -2,9 +2,6 @@ from typing import List, Tuple
 from datetime import datetime
 import json
 from collections import Counter
-from memory_profiler import profile
-
-
 
 '''
 Approach 1:
@@ -17,8 +14,7 @@ Approach 2
 - After that filter users who posted in those days
 - For each day get the top user who posted that day   
 '''
-log_f = open('q1_memory.log', 'w')
-@profile(stream=log_f)
+
 def q1_memory(file_path: str) -> List[Tuple[datetime.date, str]]:
     def read_json():
         with open(file_path, 'r') as file:
